@@ -1,6 +1,6 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
+  "short_name": "FD Order React App",
+  "name": "FD Order React Application",
   "icons": [
     {
       "src": "favicon.ico",
@@ -18,8 +18,9 @@
       "sizes": "512x512"
     }
   ],
-  "start_url": ".",
+  "start_url": "/",
   "display": "standalone",
   "theme_color": "#000000",
-  "background_color": "#ffffff"
+  "background_color": "#ffffff",
+  "description": "This is an awesome application built with React."
 }

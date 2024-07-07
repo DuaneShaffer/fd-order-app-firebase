@@ -25,7 +25,6 @@ const ForkTsCheckerWebpackPlugin =
     ? require('react-dev-utils/ForkTsCheckerWarningWebpackPlugin')
     : require('react-dev-utils/ForkTsCheckerWebpackPlugin');
 const ReactRefreshWebpackPlugin = require('@pmmmwh/react-refresh-webpack-plugin');
-const WorkboxWebpackPlugin = require('workbox-webpack-plugin');
 
 const createEnvironmentHash = require('./webpack/persistentCache/createEnvironmentHash');
 
@@ -334,11 +333,7 @@ module.exports = function (webpackEnv) {
           babelRuntimeEntry,
           babelRuntimeEntryHelpers,
           babelRuntimeRegenerator,
-        ]),
-        new WorkboxWebpackPlugin.GenerateSW({
-          clientsClaim: true,
-          skipWaiting: true,
-        }),
+        ])
       ],
     },
     module: {
