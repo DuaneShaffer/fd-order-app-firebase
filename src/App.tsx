@@ -1,26 +1,28 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+   import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+   import { CssBaseline, Container } from '@material-ui/core';
+   import Header from './components/Header';
+   import Home from './pages/Home';
+   import Items from './pages/Items';
+   import Orders from './pages/Orders';
+   import Warehouse from './pages/Warehouse';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
+   const App: React.FC = () => {
+     return (
+       <Router>
+         <CssBaseline />
+         <Header />
+         <Container>
+           <Switch>
+             <Route exact path="/" component={Home} />
+             <Route path="/items" component={Items} />
+             <Route path="/orders" component={Orders} />
+             <Route path="/warehouse" component={Warehouse} />
+           </Switch>
+         </Container>
+       </Router>
+     );
+   };
 
-export default App;
+   export default App;
+   
