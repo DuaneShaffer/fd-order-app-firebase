@@ -1,6 +1,6 @@
 import React from 'react';
-   import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-   import { CssBaseline, Container } from '@material-ui/core';
+   import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+   import { CssBaseline, Container } from '@mui/material';
    import Header from './components/Header';
    import Home from './pages/Home';
    import Items from './pages/Items';
@@ -13,12 +13,12 @@ import React from 'react';
          <CssBaseline />
          <Header />
          <Container>
-           <Switch>
-             <Route exact path="/" component={Home} />
+           <Routes>
+             <Route path="/" component={Home} />
              <Route path="/items" component={Items} />
              <Route path="/orders" component={Orders} />
              <Route path="/warehouse" component={Warehouse} />
-           </Switch>
+           </Routes>
          </Container>
        </Router>
      );
