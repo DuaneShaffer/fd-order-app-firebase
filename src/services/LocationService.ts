@@ -1,21 +1,22 @@
-import { db } from './firebase';
-import { Location } from './Location';
+import { db } from '../firebase';
+import { Location } from '../models/Location';
+import { collection, doc, setDoc, updateDoc, getDoc, deleteDoc } from 'firebase/firestore';
 
-const locationsCollection = db.collection('locations');
+const locationsCollection = collection(db, 'locations');
 
 export const addLocation = async (location: Location): Promise<void> => {
-  await locationsCollection.doc(location.id).set(location);
+  await setDoc(doc(locationsCollection, location.id), location);
 };
 
 export const updateLocation = async (location: Location): Promise<void> => {
-  await locationsCollection.doc(location.id).update(location);
+  await updateDoc(doc(locationsCollection, location.id), { ...location });
 };
 
 export const getLocation = async (locationId: string): Promise<Location | undefined> => {
-  const doc = await locationsCollection.doc(locationId).get();
-  return doc.exists ? (doc.data() as Location) : undefined;
+  const docSnap = await getDoc(doc(locationsCollection, locationId));
+  return docSnap.exists() ? (docSnap.data() as Location) : undefined;
 };
 
 export const deleteLocation = async (locationId: string): Promise<void> => {
-  await locationsCollection.doc(locationId).delete();
-};
+  await deleteDoc(doc(locationsCollection, locationId));
+};  

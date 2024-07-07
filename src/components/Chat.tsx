@@ -1,37 +1,51 @@
 import React, { useState, useEffect } from 'react';
-import { rtdb } from '../services/firebase';
+import { getDatabase, ref, push, onChildAdded, DataSnapshot } from 'firebase/database';
+import { app } from '../firebase';
+
+interface Message {
+  id: string;
+  text: string;
+}
 
 const Chat: React.FC = () => {
-  const [messages, setMessages] = useState<{ [key: string]: string }>({});
+  const [messages, setMessages] = useState<Message[]>([]);
   const [newMessage, setNewMessage] = useState('');
 
   useEffect(() => {
-    const chatRef = rtdb.ref('chats');
-    chatRef.on('child_added', snapshot => {
-      setMessages(prevMessages => ({
+    const db = getDatabase(app);
+    const chatRef = ref(db, 'chats');
+
+    const unsubscribe = onChildAdded(chatRef, (snapshot: DataSnapshot) => {
+      setMessages(prevMessages => [
         ...prevMessages,
-        [snapshot.key!]: snapshot.val()
-      }));
+        { id: snapshot.key as string, text: snapshot.val() as string }
+      ]);
     });
+
+    return () => unsubscribe();
   }, []);
 
   const sendMessage = () => {
-    const chatRef = rtdb.ref('chats');
-    chatRef.push(newMessage);
+    if (newMessage.trim() === '') return;
+
+    const db = getDatabase(app);
+    const chatRef = ref(db, 'chats');
+    push(chatRef, newMessage);
     setNewMessage('');
   };
 
   return (
     <div>
-      <div>
-        {Object.keys(messages).map(key => (
-          <div key={key}>{messages[key]}</div>
+      <div style={{ height: '300px', overflowY: 'auto', border: '1px solid #ccc', padding: '10px', marginBottom: '10px' }}>
+        {messages.map(message => (
+          <div key={message.id}>{message.text}</div>
         ))}
       </div>
       <input
         type="text"
         value={newMessage}
         onChange={e => setNewMessage(e.target.value)}
+        onKeyPress={e => e.key === 'Enter' && sendMessage()}
       />
       <button onClick={sendMessage}>Send</button>
     </div>

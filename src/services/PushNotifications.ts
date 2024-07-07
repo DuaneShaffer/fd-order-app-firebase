@@ -1,17 +1,30 @@
-import { messaging } from './firebase';
+import { getMessaging, getToken, onMessage } from "firebase/messaging";
+import { app } from '../firebase';
+
+const messaging = getMessaging(app);
 
 export const requestPermission = async () => {
   try {
-    await messaging.requestPermission();
-    const token = await messaging.getToken();
-    console.log('FCM Token:', token);
-    // Save the token to your database
+    const permission = await Notification.requestPermission();
+    if (permission === 'granted') {
+      const token = await getToken(messaging, { vapidKey: '' });
+      console.log('FCM Token:', token);
+      // Save the token to your database
+      return token;
+    } else {
+      console.log('Notification permission denied');
+      return null;
+    }
   } catch (error) {
-    console.error('Permission denied', error);
+    console.error('An error occurred while requesting permission', error);
+    return null;
   }
 };
 
-messaging.onMessage(payload => {
-  console.log('Message received:', payload);
-  // Display notification
-});
+export const onMessageListener = () =>
+  new Promise((resolve) => {
+    onMessage(messaging, (payload) => {
+      console.log('Message received:', payload);
+      resolve(payload);
+    });
+  });

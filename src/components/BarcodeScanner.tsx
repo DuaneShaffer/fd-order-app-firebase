@@ -14,7 +14,7 @@ const BarcodeScanner: React.FC = () => {
       decoder: {
         readers: ["code_128_reader"]
       }
-    }, (err) => {
+    }, (err: any) => {
       if (err) {
         console.error(err);
         return;
@@ -22,7 +22,7 @@ const BarcodeScanner: React.FC = () => {
       Quagga.start();
     });
 
-    Quagga.onDetected(data => {
+    Quagga.onDetected((data: { codeResult: { code: any; }; }) => {
       console.log(data.codeResult.code);
       // Handle barcode data
     });

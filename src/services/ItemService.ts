@@ -1,21 +1,22 @@
-import { db } from './firebase';
-import { Item } from './Item';
+import { db } from '../firebase';
+import { Item } from '../models/Item';
+import { collection, doc, setDoc, updateDoc, getDoc, deleteDoc } from 'firebase/firestore';
 
-const itemsCollection = db.collection('items');
+const itemsCollection = collection(db, 'items');
 
 export const addItem = async (item: Item): Promise<void> => {
-  await itemsCollection.doc(item.id).set(item);
+  await setDoc(doc(itemsCollection, item.id), item);
 };
 
 export const updateItem = async (item: Item): Promise<void> => {
-  await itemsCollection.doc(item.id).update(item);
+  await updateDoc(doc(itemsCollection, item.id), { ...item });
 };
 
 export const getItem = async (itemId: string): Promise<Item | undefined> => {
-  const doc = await itemsCollection.doc(itemId).get();
-  return doc.exists ? (doc.data() as Item) : undefined;
+  const docSnap = await getDoc(doc(itemsCollection, itemId));
+  return docSnap.exists() ? (docSnap.data() as Item) : undefined;
 };
 
 export const deleteItem = async (itemId: string): Promise<void> => {
-  await itemsCollection.doc(itemId).delete();
+  await deleteDoc(doc(itemsCollection, itemId));
 };

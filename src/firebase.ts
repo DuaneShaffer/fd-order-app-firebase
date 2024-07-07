@@ -14,14 +14,14 @@ const firebaseConfig = {
 	measurementId: "G-TVE5BNLJ63"
 };
 
-const app = initializeApp(firebaseConfig);
+export const app = initializeApp(firebaseConfig);
 export const db = getFirestore(app);
 export const auth = getAuth(app);
 export const rtdb = getDatabase(app);
 export const messaging = getMessaging(app);
 
 // Enable emulators if in development environment
-if (process.env.NODE_ENV === 'development') {
-	connectFirestoreEmulator(db, 'localhost', 8080);
-	connectAuthEmulator(auth, 'http://localhost:9099');
-}
+// if (process.env.NODE_ENV === 'development') {
+// 	connectFirestoreEmulator(db, 'localhost', 8080);
+// 	connectAuthEmulator(auth, 'http://localhost:9099');
+// }
