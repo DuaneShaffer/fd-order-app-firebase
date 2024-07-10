@@ -7,7 +7,7 @@ export const requestPermission = async () => {
   try {
     const permission = await Notification.requestPermission();
     if (permission === 'granted') {
-      const token = await getToken(messaging, { vapidKey: '' });
+      const token = await getToken(messaging, { vapidKey: 'BNIR9YBFrx6_yCAK0f3lBxF3vYlEFSu61iBQ6lueRlsHWPW13pPdNhwx2OPzbG08NgwAyxuVfVxBHUzf3_KEhko' });
       console.log('FCM Token:', token);
       // Save the token to your database
       return token;
