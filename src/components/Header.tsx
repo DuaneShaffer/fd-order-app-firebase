@@ -9,10 +9,10 @@ const Header: React.FC = () => {
   };
 
   return (
-    <Box mb={2}> {/* Add margin bottom to create padding below */}
+    <Box mb={2}> {}
       <AppBar position="static">
         <Toolbar>
-        <img src="logo192.png" alt="Logo" style={{ marginRight: '10px', height: '30px' }}/>
+        <img src="FD_Monogram.png" alt="Logo" style={{ marginRight: '10px', height: '30px' }}/>
           <Typography variant="h6" style={{ flexGrow: 1 }}>
             FD Order App
           </Typography>

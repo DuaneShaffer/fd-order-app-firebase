@@ -3,6 +3,7 @@ import { getFirestore, connectFirestoreEmulator } from 'firebase/firestore';
 import { getAuth, connectAuthEmulator } from 'firebase/auth';
 import { getMessaging } from 'firebase/messaging';
 import { getDatabase } from 'firebase/database';
+import { getStorage } from 'firebase/storage';
 
 const firebaseConfig = {
 	apiKey: "AIzaSyAEj_f8RbZ3HOgoFwmDVGt41ACaRfygsUY",
@@ -19,6 +20,7 @@ export const db = getFirestore(app);
 export const auth = getAuth(app);
 export const rtdb = getDatabase(app);
 export const messaging = getMessaging(app);
+export const storage = getStorage(app);
 
 // Enable emulators if in development environment
 // if (process.env.NODE_ENV === 'development') {

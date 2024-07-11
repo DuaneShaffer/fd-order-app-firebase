@@ -23,7 +23,7 @@ const Login: React.FC = () => {
       style={{ minHeight: '100vh' }}
     >
       <Grid item>
-        <img src="/logo512.png" alt="Logo" style={{ height: 100, marginBottom: 20 }} />
+        <img src="/FD_Monogram.png" alt="Logo" style={{ height: 100, marginBottom: 20 }} />
       </Grid>
       <Grid item>
         <Typography variant="h4" component="h1" align="center" gutterBottom>
